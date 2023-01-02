@@ -26,21 +26,19 @@ clusterrolebinding.rbac.authorization.k8s.io/py-operator created
 job.batch/pi created
 /usr/local/lib/python3.8/site-packages/kopf/_core/reactor/running.py:176: FutureWarning: Absence of either namespaces or cluster-wide flag will become an error soon. For now, switching to the cluster-wide mode for backward compatibility.
   warnings.warn("Absence of either namespaces or cluster-wide flag will become an error soon."
-[2023-01-02 01:49:03,351] kopf._core.engines.a [INFO    ] Initial authentication has been initiated.
-[2023-01-02 01:49:03,352] kopf.activities.auth [INFO    ] Activity 'login_via_client' succeeded.
-[2023-01-02 01:49:03,352] kopf._core.engines.a [INFO    ] Initial authentication has finished.
-[2023-01-02 01:49:05,560] kopf.objects         [INFO    ] [default/pi] Handler 'on_create' succeeded.
-[2023-01-02 01:49:05,560] kopf.objects         [INFO    ] [default/pi] Creation is processed: 1 succeeded; 0 failed.
-[2023-01-02 01:49:05,568] kopf.objects         [WARNING ] [default/pi] Patching failed with inconsistencies: (('remove', ('status', 'on_create'), 'it works!', None),)
+[2023-01-02 02:00:45,501] kopf._core.engines.a [INFO    ] Initial authentication has been initiated.
+[2023-01-02 02:00:45,502] kopf.activities.auth [INFO    ] Activity 'login_via_client' succeeded.
+[2023-01-02 02:00:45,502] kopf._core.engines.a [INFO    ] Initial authentication has finished.
+[2023-01-02 02:00:47,218] root                 [INFO    ] it works!
+[2023-01-02 02:00:47,218] kopf.objects         [INFO    ] [default/pi] Handler 'on_create' succeeded.
+[2023-01-02 02:00:47,218] kopf.objects         [INFO    ] [default/pi] Creation is processed: 1 succeeded; 0 failed.
 ```
 
 ## TODOs
 
 1. Be more restrictive with service account permissions.  Right now has access to everything
-2. Figure out how to log things instead of creating a patching failure (see warning message)
-3. Address the `cluster-wide` flag warning message
-4. Do something useful, like create a slackbot etc. 
-
+2. Address the `cluster-wide` flag warning message
+3. Do something useful, like create a slackbot etc. 
 
 Further info:
 - https://brennerm.github.io/posts/k8s-operators-with-python-part-1.html
