@@ -2,11 +2,9 @@
 
 This is a minimal example that creates a minimal python controller that prints a message when a `kind: Job` is run.
 
-To run the example execute the shell script:
-
 ## To Run The Example
 
-I assume you are running K8s locally with Docker Desktop.  You can then run this script
+I assume you are [running K8s locally with Docker Desktop](https://docs.docker.com/desktop/kubernetes/).  You can then run this script:
 
 ```bash
 ./run.sh
@@ -39,7 +37,7 @@ job.batch/pi created
 ## TODOs
 
 1. Be more restrictive with service account permissions.  Right now has access to everything
-2. Figure out how to log things instead of creating a patching failure (see error message)
+2. Figure out how to log things instead of creating a patching failure (see warning message)
 3. Address the `cluster-wide` flag warning message
 4. Do something useful, like create a slackbot etc. 
 
