@@ -15,6 +15,8 @@ See the comments in [run.sh](run.sh) for more context on what this script does.
 
 ### Output
 
+In the last step, you will see the string `it works!` printed to the logs
+
 ```bash
 % ./run sh                                                                                  
 ...                                         0.0s
