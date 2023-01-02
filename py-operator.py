@@ -9,4 +9,4 @@ except k8s_config.ConfigException:
 
 @kopf.on.create('batch', 'v1', 'jobs')
 def on_create(namespace, spec, body, **kwargs):
-    return {'msg': 'it works!'}
+    return('it works!')
