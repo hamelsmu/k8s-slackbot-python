@@ -24,13 +24,9 @@ deployment.apps/py-operator created
 clusterrole.rbac.authorization.k8s.io/py-operator created
 clusterrolebinding.rbac.authorization.k8s.io/py-operator created
 job.batch/pi created
-[2023-01-02 21:28:10,563] kopf._core.engines.a [INFO    ] Initial authentication has been initiated.
-[2023-01-02 21:28:10,564] kopf.activities.auth [INFO    ] Activity 'login_via_client' succeeded.
-[2023-01-02 21:28:10,565] kopf._core.engines.a [INFO    ] Initial authentication has finished.
-[2023-01-02 21:28:10,589] kopf._core.reactor.o [WARNING ] Not enough permissions to watch for resources: changes (creation/deletion/updates) will not be noticed; the resources are only refreshed on operator restarts.
-[2023-01-02 21:28:12,417] root                 [INFO    ] it works!
-[2023-01-02 21:28:12,417] kopf.objects         [INFO    ] [default/pi] Handler 'on_create' succeeded.
-[2023-01-02 21:28:12,418] kopf.objects         [INFO    ] [default/pi] Creation is processed: 1 succeeded; 0 failed.
+job.batch/pi condition met
+Waiting for Job to complete...
+Job "pi" completed successfully
 ```
 
 ## TODOs

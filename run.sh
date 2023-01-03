@@ -9,6 +9,10 @@ kubectl apply -f py-operator.yml
 sleep 3
 # Creates a job so we can trigger the controller
 kubectl apply -f job.yml
+
+# Wait for job to complete
+kubectl wait --for=condition=complete job/pi
 sleep 2
+
 # Prints the logs from the controller
 kubectl logs deploy/py-operator
