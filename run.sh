@@ -11,8 +11,8 @@ sleep 3
 kubectl apply -f job.yml
 
 # Wait for job to complete
-kubectl wait --for=condition=complete job/pi
+kubectl wait --for=condition=complete job/pi -n hamel
 sleep 2
 
 # Prints the logs from the controller
-kubectl logs deploy/py-operator
+kubectl logs deploy/py-operator -n hamel
