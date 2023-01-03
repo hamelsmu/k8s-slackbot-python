@@ -52,7 +52,6 @@ metadata:
 subjects:
 - kind: ServiceAccount
   name: py-operator
-  namespace: hamel
   apiGroup: ""
 roleRef:
   kind: Role
