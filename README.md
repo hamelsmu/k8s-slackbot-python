@@ -91,3 +91,4 @@ for event in w.stream(job_client.list_namespaced_job, namespace=namespace):
     # ....
 ```
 
+You would have to edit [py-operator.py](./py-operator.py) to update the python code and [controller-deployment](./controller-deployment.yml) to add the annotations.
