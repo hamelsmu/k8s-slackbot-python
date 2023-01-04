@@ -33,7 +33,7 @@ The code is specified by two things:
 
 ## Prerequisites
 
-1. Install [K8s locally with Docker Desktop](https://docs.docker.com/desktop/kubernetes/).
+1. Install [K8s locally with minikube](https://minikube.sigs.k8s.io/docs/start/).  If you are using Docker Desktop, you need to also run this in your terminal: `eval $(minikube docker-env)` and put that in your `.bashrc` file so that Minikube can use the correct Docker daemon.
 2. Optionally setup a SlackBot using [these instructions]( https://www.pragnakalp.com/create-slack-bot-using-python-tutorial-with-examples/) and export your secret token to an environment variable: `export SLACK_TOKEN=<your-token>`
 
 ## Running The Example
