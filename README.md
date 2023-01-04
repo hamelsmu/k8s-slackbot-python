@@ -62,9 +62,14 @@ job.batch/pi-one created
 job.batch/pi-two created
 job.batch/pi-one condition met
 Monitoring Jobs...
-Failure: Job `pi-two` uid: `4fca0487-61d5-412b-8bcc-d3f0b71e498e` has completed with failure.
-Success: Job `pi-one` uid: `4840cf0a-6988-4ac6-a8d1-7614da1b66a7` has completed with success.
+Failure: Job `pi-two` uid: `ac9357f6-2115-4355-8595-31d308551808` has completed with failure.
+Success: Job `pi-one` uid: `436b1048-7d3c-4e2b-9392-d16364cf0383` has completed with success.
 ```
+
+Furthermore, if you setup slack, it will look like this:
+
+![](slack.png)
+
 
 ## Next Steps
 
