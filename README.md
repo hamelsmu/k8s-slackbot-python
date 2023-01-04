@@ -13,26 +13,26 @@ See the comments in [run.sh](run.sh) for more context on what this script does.
 
 ### Output
 
-In the last step, you will see the string `it works!` printed to the logs
+You will see that `pi-one` succeeds, whereas `pi-two` fails:
 
 ```bash
 % ./run sh
 ...
 naming to docker.io/library/py-operator:v1
+namespace/hamel created
 serviceaccount/py-operator created
 deployment.apps/py-operator created
-clusterrole.rbac.authorization.k8s.io/py-operator created
-clusterrolebinding.rbac.authorization.k8s.io/py-operator created
-job.batch/pi created
-job.batch/pi condition met
-Waiting for Job to complete...
-Job "pi" completed successfully
+role.rbac.authorization.k8s.io/py-operator created
+rolebinding.rbac.authorization.k8s.io/py-operator created
+job.batch/pi-one created
+job.batch/pi-two created
+job.batch/pi-one condition met
+Monitoring Jobs...
+Failure: Job pi-two has failed...
+Success: Job pi-one has completed successfully!
 ```
 
 ## TODOs
 
-Do something useful, like create a slackbot etc. 
+Do something useful, like create a slack bot, etc. 
 
-Further info:
-- https://brennerm.github.io/posts/k8s-operators-with-python-part-1.html
-- https://brennerm.github.io/posts/k8s-operators-with-python-part-2.html

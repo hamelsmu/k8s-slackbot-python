@@ -1,7 +1,7 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: pi
+  name: pi-one
   namespace: hamel
 spec:
   template:
@@ -9,6 +9,21 @@ spec:
       containers:
       - name: pi
         image: perl:5.34.0
-        command: ["perl",  "-Mbignum=bpi", "-wle", "print bpi(2000)"]
+        command: ["perl",  "-Mbignum=bpi", "-wle", "print bpi(200)"]
       restartPolicy: Never
-  backoffLimit: 4
+  backoffLimit: 1
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: pi-two
+  namespace: hamel
+spec:
+  template:
+    spec:
+      containers:
+      - name: pi
+        image: perl:5.34.0
+        command: ["this is not valid code, so it will fail"]
+      restartPolicy: Never
+  backoffLimit: 1

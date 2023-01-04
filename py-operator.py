@@ -1,24 +1,24 @@
 #!/usr/bin/env python3
-from kubernetes import client, config
-import time, logging
+from kubernetes import client, config, watch
+import logging
 
-config.load_incluster_config()
+## I'm using `load_incluster_config` because I'm running this script inside a pod
+try: config.load_kube_config()
+except config.ConfigException: config.load_incluster_config()
 
 # Create the API client
-api_client = client.BatchV1Api()
+job_client = client.BatchV1Api()
 
 # Get the namespace where the controller is deployed
 namespace = open('/var/run/secrets/kubernetes.io/serviceaccount/namespace').read()
-old_jobs = []
 
-print("Waiting for Job to complete...")
+print("Monitoring Jobs...")
+w = watch.Watch()
+for event in w.stream(job_client.list_namespaced_job, namespace=namespace):
+    obj = event['object']
+    nm = obj.metadata.name
 
-while True:
-    time.sleep(1)
-    # List all the Jobs in the namespace
-    jobs = api_client.list_namespaced_job(namespace=namespace).items
-    for job in jobs:
-        nm = job.metadata.name
-        if job.status.succeeded and nm not in old_jobs: 
-            print(f'Job "{nm}" completed successfully')
-            old_jobs.append(nm)
+    if obj.status.succeeded: 
+        print(f'Success: Job {nm} has completed successfully!')
+    elif obj.status.failed: 
+        print(f'Failure: Job {nm} has failed...')

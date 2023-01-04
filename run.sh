@@ -6,13 +6,13 @@ docker build -t py-operator:v1 .
 kubectl delete -f . --ignore-not-found
 # Creates a deployment for our custom controller with a pause to allow the deployment to finish
 kubectl apply -f py-operator.yml
-sleep 3
+sleep 2
 # Creates a job so we can trigger the controller
 kubectl apply -f job.yml
 
 # Wait for job to complete
-kubectl wait --for=condition=complete job/pi -n hamel
-sleep 2
+kubectl wait --for=condition=complete job/pi-one --timeout=5s -n hamel 
+sleep 1
 
 # Prints the logs from the controller
 kubectl logs deploy/py-operator -n hamel
