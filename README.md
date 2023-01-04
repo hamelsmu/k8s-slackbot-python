@@ -34,7 +34,7 @@ The code is specified by two things:
 ## Prerequisites
 
 1. Install [K8s locally with minikube](https://minikube.sigs.k8s.io/docs/start/).  If you are using Docker Desktop, you need to also run this in your terminal: `eval $(minikube docker-env)` and put that in your `.bashrc` file so that Minikube can use the correct Docker daemon.
-2. Optionally setup a SlackBot using [these instructions]( https://www.pragnakalp.com/create-slack-bot-using-python-tutorial-with-examples/) and export your secret token to an environment variable: `export SLACK_TOKEN=<your-token>`
+2. Optionally setup a SlackBot using [these instructions]( https://www.pragnakalp.com/create-slack-bot-using-python-tutorial-with-examples/) and export your secret token to an environment variable: `export SLACK_TOKEN=<your-token>`.  The channel name is hardcoded at the moment, so you need to invite your bot to a channel named `#k8s-notifications`.  You can make this more flexible if you like by following [these steps](#next-steps).
 
 ## Running The Example
 
@@ -65,7 +65,7 @@ Failure: Job `pi-two` uid: `4fca0487-61d5-412b-8bcc-d3f0b71e498e` has completed 
 Success: Job `pi-one` uid: `4840cf0a-6988-4ac6-a8d1-7614da1b66a7` has completed with success.
 ```
 
-## Possible TODOS
+## Next Steps
 
 Right now, the slack channel and messages are hardcoded in [py-operator.py](./py-operator.py).  You could use [annotations](https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/) to send parameters for these items to the slackbot with the python Kubernetes client like so:
 
