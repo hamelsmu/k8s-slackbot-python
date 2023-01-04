@@ -11,8 +11,10 @@ The permissions for our app are defined in the following sections of [controller
 - **`Role`**: this specifies the permissions of the role, which will be a `ServiceAccount` due to the `RoleBinding`
 - **`RoleBinding`**: this is a mapping that associates the `Role` with the `ServiceAccount`.
 - **`NameSpace`**: you can segment and organize your applications in Kubernetes with a NameSpace, which is a good idea for security purposes.  The namespace is named "hamel" in this example.
-  
-The Slack bot in this example requires a token; for that, we will use Kuberentes Secrets.  Instead of creating a YAML file with the secret the script [`run.sh`](./run.sh) has a command that creates a secret from the environment variable `SLACK_TOKEN`.  The secret is exposed as an environment variable in [controller-deployment.yml](controller-deployment.yml).
+
+### Secrets
+
+The Slack bot in this example requires a token; for that, we will use Kuberentes Secrets.  Instead of creating a YAML file with the secret, the script [`run.sh`](./run.sh) creates a secret from the environment variable `SLACK_TOKEN`.  The secret is exposed as an environment variable in [controller-deployment.yml](controller-deployment.yml).
 
 ## Deploying the Bot
 
