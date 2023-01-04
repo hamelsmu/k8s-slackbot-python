@@ -6,7 +6,7 @@ Background: [Jobs](https://kubernetes.io/docs/concepts/workloads/controllers/job
 
 ### Setting up permissions
 
-The following sections in [controller-permissions.yml](./controller-permissions.yml):
+The permissions for our app are defined in the following sections of [controller-permissions.yml](./controller-permissions.yml):
 
 - **`ServiceAccount`**: this is an account that is allowed to access the Kubernetes API.  You usually don't use this when deploying apps on Kubernetes unless you are creating tools for Kubernetes (like we are)
 - **`Role`**: this specifies the permissions of the role, which will be a `ServiceAccount` due to the `RoleBinding`
@@ -20,13 +20,14 @@ The deployment for the custom controller is defined in [controller-deployment.ym
 
 ## Custom Controller Code
 
-The code is specified by two things:
+The code is defined in two places:
+
 - [Dockerfile](./Dockerfile): This is the environment the custom controller will run in.  The command at the end runs the python script.
 - [py-operatory.py](./py-operator.py): This is the python code for the custom controller.
 
 ## Job(s) We Want to Monitor
 
-[job.yml](./job.yml) specifies two jobs we want to run: `pi-one` and `pi-two`.  The first one will be sucessfull, while the second one has an error.
+[job.yml](./job.yml) specifies two jobs we want to run: `pi-one` and `pi-two`.  The first one will be successful, while the second one has an error.
 
 
 # To Run The Example
