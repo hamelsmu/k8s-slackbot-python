@@ -10,7 +10,7 @@ You will see five sections in [py-operator.yml](./py-operator.yml):
 - **`ServiceAccount`**: this is an account that is allowed to access the Kubernetes API itself.  You usually don't use this when deploying apps on Kubernetes unless you are creating tools for Kubernetes (like we are)
 - **`Role`**: this specifies the permissions of the role, which will be a `ServiceAccount` due to the `RoleBinding`
 - **`RoleBinding`**: this is a mapping that associates the `Role` with the `ServiceAccount`.
-- **`NameSpace`**: you can segment and organize your applications in Kubernetes with a NameSpace, which is a good idea for security purposes.
+- **`NameSpace`**: you can segment and organize your applications in Kubernetes with a NameSpace, which is a good idea for security purposes.  The namespace is named "hamel" in this example.
 
 ## Custom Controller Code
 
