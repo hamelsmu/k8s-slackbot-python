@@ -14,7 +14,7 @@ The permissions for our app are defined in the following sections of [controller
 
 ### Secrets
 
-The Slack bot in this example requires a token; for that, we will use Kuberentes Secrets.  Instead of creating a YAML file with the secret, the script [`run.sh`](./run.sh) creates a secret from the environment variable `SLACK_TOKEN`.  The secret is exposed as an environment variable in [controller-deployment.yml](controller-deployment.yml).
+The Slack bot in this example requires a token; for that, we will use [Kuberentes Secrets](https://kubernetes.io/docs/concepts/configuration/secret/).  Instead of creating a YAML file with the secret, the script [`run.sh`](./run.sh) creates a secret from the environment variable `SLACK_TOKEN`.  The secret is exposed as an environment variable in [controller-deployment.yml](controller-deployment.yml).
 
 ## Deploying the Bot
 
