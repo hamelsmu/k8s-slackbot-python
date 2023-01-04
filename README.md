@@ -66,7 +66,7 @@ Failure: Job `pi-two` uid: `ac9357f6-2115-4355-8595-31d308551808` has completed 
 Success: Job `pi-one` uid: `436b1048-7d3c-4e2b-9392-d16364cf0383` has completed with success.
 ```
 
-Furthermore, if you setup slack, the bot will respond like this:
+Furthermore, if you setup the Slack bot, the output will look like this:
 
 ![](slack.png)
 
