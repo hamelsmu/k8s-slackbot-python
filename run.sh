@@ -17,7 +17,7 @@ kubectl apply -f controller-deployment.yml && sleep 1 # The deployment for our c
 kubectl apply -f job.yml # This job will be watched by the controller
 
 # Wait for job to complete
-kubectl wait --for=condition=complete job/pi-one --timeout=5s -n hamel >/dev/null
+kubectl wait --for=condition=complete job/job-one -n hamel >/dev/null
 
 # Prints the logs from the controller
 kubectl logs deploy/py-operator -n hamel

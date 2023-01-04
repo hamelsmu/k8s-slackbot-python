@@ -1,29 +1,29 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: pi-one
+  name: job-one
   namespace: hamel
 spec:
   template:
     spec:
       containers:
-      - name: pi
-        image: perl:5.34.0
-        command: ["perl",  "-Mbignum=bpi", "-wle", "print bpi(200)"]
+      - name: py
+        image: python:3.8-alpine
+        command: ["python",  "-c", "import time; time.sleep(1); print('success')"]
       restartPolicy: Never
   backoffLimit: 1
 ---
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: pi-two
+  name: job-two
   namespace: hamel
 spec:
   template:
     spec:
       containers:
-      - name: pi
-        image: perl:5.34.0
-        command: ["this is not valid code, so it will fail"]
+      - name: py
+        image: python:3.8-alpine
+        command: ["python",  "-c", "raise Exception('This is an error')"]
       restartPolicy: Never
   backoffLimit: 1

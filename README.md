@@ -30,7 +30,7 @@ The code is defined in two places:
 
 ## Job(s) We Want to Monitor
 
-[job.yml](./job.yml) specifies two jobs we want to run: `pi-one` and `pi-two`.  The first one will be successful, while the second one has an error.
+[job.yml](./job.yml) specifies two jobs we want to run: `job-one` and `job-two`.  The first one will be successful, while the second one has an error.
 
 
 # To Run The Example
@@ -50,7 +50,7 @@ You can run this bash script which creates all the Kubernetes resources and prin
 
 ### Output
 
-You will see that `pi-one` succeeds, whereas `pi-two` fails:
+You will see that `job-one` succeeds, whereas `job-two` fails:
 
 ```bash
 % ./run sh
@@ -58,21 +58,31 @@ You will see that `pi-one` succeeds, whereas `pi-two` fails:
 naming to docker.io/library/py-operator:v1
 namespace/hamel created
 serviceaccount/py-operator created
-deployment.apps/py-operator created
 role.rbac.authorization.k8s.io/py-operator created
 rolebinding.rbac.authorization.k8s.io/py-operator created
-job.batch/pi-one created
-job.batch/pi-two created
-job.batch/pi-one condition met
+secret/slackbot-token created
+deployment.apps/py-operator created
+job.batch/job-one created
+job.batch/job-two created
 Monitoring Jobs...
-Failure: Job `pi-two` uid: `ac9357f6-2115-4355-8595-31d308551808` has completed with failure.
-Success: Job `pi-one` uid: `436b1048-7d3c-4e2b-9392-d16364cf0383` has completed with success.
+Failure: Job `job-two` uid: `15b40534-411a-437b-a94f-3d722fc32ebd` has completed with failure.
+Success: Job `job-one` uid: `65d51553-4a3c-4f50-b433-c22828db9b1d` has completed with success.
 ```
 
 Furthermore, if you setup the Slack bot, the output will look like this:
 
 ![](slack.png)
 
+As the slack message suggests, you see the logs with the command `kubectl logs jobs/job-two -n hamel`:
+
+```bash
+$ kubectl logs jobs/job-two -n hamel
+
+Found 2 pods, using pod/job-two-slp8k
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+Exception: This is an error
+```
 
 ## Next Steps
 

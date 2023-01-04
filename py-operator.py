@@ -22,11 +22,15 @@ for event in w.stream(job_client.list_namespaced_job, namespace=namespace):
     nm = obj.metadata.name
 
     status = None
-    if obj.status.succeeded: status = 'Success' 
-    elif obj.status.failed: status = 'Failure'
+    kctl_msg = ''
+    if obj.status.succeeded: 
+        status = 'Success' 
+    elif obj.status.failed: 
+        status = 'Failure'
+        kctl_msg = f'See logs with: `kubectl logs jobs/{nm} -n {namespace}`'
 
     if status and id not in past_jobs:
         past_jobs.add(id)
         msg=f'{status}: Job `{nm}` uid: `{id}` has completed with {status.lower()}.'
         print(msg)
-        slackbot.send_message(msg, channel='#k8s-notifications')
+        slackbot.send_message(msg +'\n'+ kctl_msg, channel='#k8s-notifications')
