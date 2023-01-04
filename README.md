@@ -1,10 +1,9 @@
 # Kubernetes Native Slackbot with Python
 
-Background: [Jobs](https://kubernetes.io/docs/concepts/workloads/controllers/job/) in Kubernetes are a way to run a batch job or some code until completion.  What if we wanted a Slack bot to notify us about the status of completed Jobs (success or failure) that runs natively on Kubernetes?  We would need to create something called a custom controller, which just means a process that watches Jobs and takes action according to their status. Here is a description of the pieces:
+Background: [Jobs](https://kubernetes.io/docs/concepts/workloads/controllers/job/) in Kubernetes are a way to run a batch job or some code until completion.  What if we wanted a Slack bot to notify us about the status of completed Jobs (success or failure) that runs natively on Kubernetes?  We would need to create a daemon that watches Jobs and takes action according to their status. This is also a good way to learn Kubernetes, as it requires gluing a bunch of stuff together. Here is a description of the pieces:
 
-## Custom Controller Setup
 
-### Setting up permissions
+## Setting up permissions
 
 The permissions for our app are defined in the following sections of [controller-permissions.yml](./controller-permissions.yml):
 
@@ -12,18 +11,20 @@ The permissions for our app are defined in the following sections of [controller
 - **`Role`**: this specifies the permissions of the role, which will be a `ServiceAccount` due to the `RoleBinding`
 - **`RoleBinding`**: this is a mapping that associates the `Role` with the `ServiceAccount`.
 - **`NameSpace`**: you can segment and organize your applications in Kubernetes with a NameSpace, which is a good idea for security purposes.  The namespace is named "hamel" in this example.
+  
+The Slack bot in this example requires a token; for that, we will use Kuberentes Secrets.  Instead of creating a YAML file with the secret the script [`run.sh`](./run.sh) has a command that creates a secret from the environment variable `SLACK_TOKEN`.  The secret is exposed as an environment variable in [controller-deployment.yml](controller-deployment.yml).
 
-### Deployment
+## Deploying the Bot
 
-The deployment for the custom controller is defined in [controller-deployment.yml](controller-deployment.yml).  Concretely, the `Deployment` will run a pod, which will run your container with your code that watches Kubernetes events for new jobs.  This includes the Docker Container that will run the [custom controller code](#custom-controller-code).
+The deployment for the daemon is defined in [controller-deployment.yml](controller-deployment.yml).  Concretely, the `Deployment` will run a pod, which will run your container with your code that watches Kubernetes events for new jobs.  This includes the Docker Container that will run the [Bot's code](#bot-code).
 
 
-## Custom Controller Code
+## Bot Code
 
 The code is defined in two places:
 
-- [Dockerfile](./Dockerfile): This is the environment the custom controller will run in.  The command at the end runs the python script.
-- [py-operatory.py](./py-operator.py): This is the python code for the custom controller.
+- [Dockerfile](./Dockerfile): This is the environment the daemon will run in.  The command at the end runs the python script.
+- [py-operatory.py](./py-operator.py): This is the python code that watches for jobs and optionally sends slack messages.
 
 ## Job(s) We Want to Monitor
 
