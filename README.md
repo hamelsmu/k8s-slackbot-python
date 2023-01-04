@@ -1,4 +1,4 @@
-# Kubernetes Slackbot With A Custom Python K8s Controller
+# Kubernetes Slackbot Controller with Python
 
 Background: [Jobs](https://kubernetes.io/docs/concepts/workloads/controllers/job/) in Kubernetes are a way to run a batch job or some code until completion.  What if we wanted a Slack bot to notify us about the status of completed Jobs (success or failure) that runs natively on Kubernetes?  We would need to create something called a custom controller, which just means a process that watches Jobs and takes action according to their status. Here is a description of the pieces:
 
