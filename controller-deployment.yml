@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: py-operator
+  namespace: hamel
+  labels:
+    app: py-operator
+spec:
+  replicas: 1 # make sure to not have more than one replicas
+  strategy:
+    type: Recreate # make sure the old pod is being killed before the new pod is being created
+  selector:
+    matchLabels:
+      app: py-operator
+  template:
+    metadata:
+      labels:
+        app: py-operator
+    spec:
+      serviceAccountName: py-operator
+      containers:
+      - name: py-operator
+        image: py-operator:v1
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: SLACK_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: slackbot-token
+              key: token

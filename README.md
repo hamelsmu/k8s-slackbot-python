@@ -4,13 +4,19 @@ Background: [Jobs](https://kubernetes.io/docs/concepts/workloads/controllers/job
 
 ## Custom Controller Setup
 
-You will see five sections in [py-operator.yml](./py-operator.yml):
+### Setting up permissions
 
-- **`Deployment`**: this will run a pod, which in turn will run your container with your code that watches Kubernetes events for new jobs.  This includes the Docker Container that will run the [custom controller code](#custom-controller-code).
+The following sections in [controller-permissions.yml](./controller-permissions.yml):
+
 - **`ServiceAccount`**: this is an account that is allowed to access the Kubernetes API.  You usually don't use this when deploying apps on Kubernetes unless you are creating tools for Kubernetes (like we are)
 - **`Role`**: this specifies the permissions of the role, which will be a `ServiceAccount` due to the `RoleBinding`
 - **`RoleBinding`**: this is a mapping that associates the `Role` with the `ServiceAccount`.
 - **`NameSpace`**: you can segment and organize your applications in Kubernetes with a NameSpace, which is a good idea for security purposes.  The namespace is named "hamel" in this example.
+
+### Deployment
+
+The deployment for the custom controller is defined in [controller-deployment.yml](controller-deployment.yml).  Concretely, the `Deployment` will run a pod, which will run your container with your code that watches Kubernetes events for new jobs.  This includes the Docker Container that will run the [custom controller code](#custom-controller-code).
+
 
 ## Custom Controller Code
 
@@ -25,12 +31,18 @@ The code is specified by two things:
 
 # To Run The Example
 
-I assume you are [running K8s locally with Docker Desktop](https://docs.docker.com/desktop/kubernetes/).  You can then run this script which glues all the aforementioned pieces together:
+## Prerequisites
+
+1. Install [K8s locally with Docker Desktop](https://docs.docker.com/desktop/kubernetes/).
+2. Optionally setup a SlackBot using [these instructions]( https://www.pragnakalp.com/create-slack-bot-using-python-tutorial-with-examples/) and export your secret token to an environment variable: `export SLACK_TOKEN=<your-token>`
+
+## Running The Example
+
+You can run this bash script which creates all the Kubernetes resources and prints the logs. See the comments in [run.sh](./run.sh) for more context on what this script does.
 
 ```bash
 ./run.sh
 ```
-See the comments in [run.sh](run.sh) for more context on what this script does.
 
 ### Output
 
@@ -49,11 +61,27 @@ job.batch/pi-one created
 job.batch/pi-two created
 job.batch/pi-one condition met
 Monitoring Jobs...
-Failure: Job pi-two has failed...
-Success: Job pi-one has completed successfully!
+Failure: Job `pi-two` uid: `4fca0487-61d5-412b-8bcc-d3f0b71e498e` has completed with failure.
+Success: Job `pi-one` uid: `4840cf0a-6988-4ac6-a8d1-7614da1b66a7` has completed with success.
 ```
 
-## TODOs
+## Possible TODOS
 
-Do something useful, like create a slack bot, etc. 
+Right now, the slack channel and messages are hardcoded in [py-operator.py](./py-operator.py).  You could use [annotations](https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/) to send parameters for these items to the slackbot with the python Kubernetes client like so:
+
+```python
+from kubernetes import client, config, watch
+
+config.load_incluster_config()
+job_client = client.BatchV1Api()
+namespace = open('/var/run/secrets/kubernetes.io/serviceaccount/namespace').read()
+
+w = watch.Watch()
+for event in w.stream(job_client.list_namespaced_job, namespace=namespace):
+    obj = event['object']
+
+    # do something with these annotations
+    annotations = obj.metadata.annotations
+    # ....
+```
 
