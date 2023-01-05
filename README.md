@@ -2,7 +2,6 @@
 
 Background: [Jobs](https://kubernetes.io/docs/concepts/workloads/controllers/job/) in Kubernetes are a way to run a batch job or some code until completion.  What if we wanted a Slack bot to notify us about the status of completed Jobs (success or failure) that runs natively on Kubernetes?  We would need to create a daemon that watches Jobs and takes action according to their status. This is also a good way to learn Kubernetes, as it requires gluing a bunch of stuff together. Here is a description of the pieces:
 
-
 ## Setting up permissions
 
 The permissions for our app are defined in the following sections of [controller-permissions.yml](./controller-permissions.yml):
@@ -10,7 +9,7 @@ The permissions for our app are defined in the following sections of [controller
 - **`ServiceAccount`**: this is an account that is allowed to access the Kubernetes API.  You usually don't use this when deploying apps on Kubernetes unless you are creating tools for Kubernetes (like we are)
 - **`Role`**: this specifies the permissions of the role, which will be a `ServiceAccount` due to the `RoleBinding`
 - **`RoleBinding`**: this is a mapping that associates the `Role` with the `ServiceAccount`.
-- **`NameSpace`**: you can segment and organize your applications in Kubernetes with a NameSpace, which is a good idea for security purposes.  The namespace is named "hamel" in this example.
+- **`NameSpace`**: you can segment and organize your applications in Kubernetes with a NameSpace, which is a good idea for security purposes.  The namespace is named "hamel" in this example. The `-n` flag to `kubectl` in [run.sh](./run.sh) sets the namespace.
 
 ### Secrets
 
